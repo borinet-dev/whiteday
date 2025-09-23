@@ -17,62 +17,28 @@
 		})();
 	</script>
 	<style>
-		.count-color {
-			color: red;
-			text-shadow: 2px 2px 2px black;
-		}
-
-		.info-color {
-			color: yellow;
-			text-shadow: 2px 2px 2px black;
-		}
-		.info-color2 {
-			color: red;
-			text-shadow: 1px 1px 1px black;
-		}
-		.info-color3 {
-			color: black;
-			text-shadow: 1px 1px 1px gray;
-		}
-
+		.count-color { color: red; text-shadow: 2px 2px 2px black; }
+		.info-color { color: yellow; text-shadow: 2px 2px 2px black; }
+		.info-color2 { color: red; text-shadow: 1px 1px 1px black; }
+		.info-color3 { color: black; text-shadow: 1px 1px 1px gray; }
 		.s1 { text-shadow: 4px 4px 5px black; }
 		.s2 { text-shadow: 2px 2px 2px black; }
 		.s3 { text-shadow: 1px 1px 1px black; }
-		/* 기본 네비게이션 배경 및 텍스트 색상 설정 */
-        .bg-2a2a2a {
-            background-color: #2a2a2a !important;
-        }
-
-        /* 기본 링크 색상 설정 */
-        .bg-2a2a2a .nav-link {
-            color: white !important;
-            transition: color 0.3s ease-in-out; /* 부드러운 색상 전환 효과 */
-        }
-
-        /* 마우스를 올렸을 때 색상이 더 밝아지도록 설정 */
-        .bg-2a2a2a .nav-link:hover {
-            color: #90ee90 !important; /* 연한 회색 */
-        }
-
-		.border-bottom {
-	    color: red !important;
-	    text-decoration: none; /* 기본 밑줄 제거 */
-	    transition: color 0.3s ease-in-out; /* 부드러운 색상 전환 */
-		}
-
-		.border-bottom:hover {
-		    color: darkred !important; /* 마우스 오버 시 진한 빨간색 */
-		}
-
+		.bg-2a2a2a { background-color: #2a2a2a !important; }
+		.bg-2a2a2a .nav-link { color: white !important; transition: color 0.3s ease-in-out; }
+		.bg-2a2a2a .nav-link:hover { color: #90ee90 !important; }
+		.border-bottom { color: red !important; text-decoration: none; transition: color 0.3s ease-in-out; }
+		.border-bottom:hover { color: darkred !important; }
+		body { background-color: #2a2a2a; color: white; font-family: sans-serif; line-height: 1.6; }
+		table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+		th, td { border: 1px solid white; padding: 8px; }
+		th { background-color: #444; }
+		h3 { margin-top: 30px; color: #ffd700; }
 	</style>
 	<meta charset="utf-8">
-	<title>나비</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="" name="keywords">
 	<meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="https://borinet-dev.github.io/img/wassub_icon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -105,22 +71,37 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-2a2a2a navbar-dark sticky-top p-0">
-        <a href="https://l2jnavi.org" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <img src="https://raw.githubusercontent.com/borinet-dev/img/main/logo_wassub.png" style="max-width: auto; height: auto;">
-        </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-				<a onclick="window.open('https://discord.gg/u7MJEsPpUJ')" style="cursor:pointer;" class="nav-item nav-link"><b>디스코드 입장하기</b></a>
-                <a onclick="window.open('../../AccountClassic/', '', 'location=no, width=730, height=650')" style="cursor:pointer;" class="nav-item nav-link"><b>계정관리</b></a>
-				<a onclick="window.open('../../downloads/', '', 'location=no, width=850, height=439, scrollbars=yes')" style="cursor:pointer;" class="nav-item nav-link"><b>다운로드</b></a>
-            </div>
-        </div>
-    </nav>
-    <!-- Navbar End -->
+		<!-- Header Start -->
+			<div id="header-placeholder"></div>
+			<script>
+			  (function () {
+				const url = "https://borinet-dev.github.io/head/header.html?ver=" + Date.now();
+				fetch(url)
+				  .then(r => r.text())
+				  .then(html => {
+					const holder = document.getElementById("header-placeholder");
+					holder.innerHTML = html;
+
+					// header.html에서 전달한 파비콘을 <head>에 반영
+					const fav = holder.querySelector('link[rel="navi-favicon"]');
+					if (fav) {
+					  let headIcon = document.head.querySelector("link[rel~='icon']");
+					  if (!headIcon) {
+						headIcon = document.createElement("link");
+						headIcon.rel = "icon";
+						document.head.appendChild(headIcon);
+					  }
+					  headIcon.href = fav.getAttribute("href");
+					}
+					// 제목 반영
+					const titleMeta = holder.querySelector('meta[name="web-title"]');
+					if (titleMeta) document.title = titleMeta.content;
+				  })
+				  .catch(console.error);
+			  })();
+			</script>
+		<!-- Header End -->
+	<!-- Navbar End -->
 
 
     <!-- Page Header Start -->
@@ -424,3 +405,4 @@
 	<script src="https://borinet-dev.github.io/css/js/main.js"></script>
     </body>
 </html>
+
